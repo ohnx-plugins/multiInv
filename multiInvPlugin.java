@@ -1,1 +1,1 @@
-//Atual plugin file
+//Actual plugin file
