@@ -33,10 +33,18 @@ public class MultiInvCommand implements CommandExecutor {
 		if(split[0].equals("load")) {
 			sender.sendMessage(ChatColor.RED+"Loading your inventory, please do not edit it!");
 			Player player = (Player) sender;
-			PlayerInventory inventory = InventoryIO.read(split[1]+".inventory");
+			try {
+				PlayerInventory inventory = InventoryIO.read(split[1]+".inventory");
+			} catch (Exception e) {
+				sender.sendMessage(ChatColor.RED+"Can't open that inventory file!");
+			}
+			PlayerInventory oldInventory = new PlayerInventory();
 			for (int i=0;i<40;i++) {
+				oldInventory.setItem(i, new CardboardBox(player.getInventory().getItem(i)));
 				player.getInventory().setItem(i, inventory.getInventory().get(i).getItemStack());
 			}
+			InventoryIO.write(split[1]+".inventory", oldInventory);
+			sender.sendMessage(ChatColor.GREEN+"Done!!");
 			return true;
 		} else if (split[0].equals("save")) {
 			sender.sendMessage(ChatColor.RED+"Saving your inventory, please do not edit it!");
@@ -47,7 +55,7 @@ public class MultiInvCommand implements CommandExecutor {
 				player.getInventory().setItem(i, new ItemStack(Material.AIR));
 			}
 			InventoryIO.write(split[1]+".inventory", inventory);
-			sender.sendMessage(ChatColor.RED+"Done!!");
+			sender.sendMessage(ChatColor.GREEN+"Done!!");
 			return true;
 		} else {
 			return true;
