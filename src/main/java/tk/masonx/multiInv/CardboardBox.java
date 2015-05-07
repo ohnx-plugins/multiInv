@@ -3,7 +3,6 @@ package tk.masonx.multiInv;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.inventory.ItemStack;
@@ -19,6 +18,7 @@ public class CardboardBox implements Serializable {
 	private int amount;
 	private Map<String, Object> meta;
 
+	@SuppressWarnings("deprecation")
 	public CardboardBox(ItemStack i) {
 		this.materialId = i.getTypeId();
 		this.data	= i.getData().getData();
@@ -30,6 +30,7 @@ public class CardboardBox implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public ItemStack getItemStack() {
 		ItemStack i = new ItemStack(this.materialId);
 		i.setAmount(this.amount);

@@ -1,4 +1,5 @@
-//Config loader
+package tk.masonx.multiInv;
+/*//Config loader
 package tk.masonx.multiInv;
 
 public class CheckVPNConfig {
@@ -55,3 +56,4 @@ public class CheckVPNConfig {
     	return plugin.getConfig().getInt(path);
     }
 }
+*/
