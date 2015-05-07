@@ -61,7 +61,8 @@ public class MultiInvCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.GREEN+"Done!!");
 			return true;
 		} else if (split[0].equals("help")) {
-			sender.sendMessage(ChatColor.GREEN+"Done!!");
+			sender.sendMessage(ChatColor.GREEN+"Help is not yet implemented!!");
+			return false;
 		} else {
 			return true;
 		}
