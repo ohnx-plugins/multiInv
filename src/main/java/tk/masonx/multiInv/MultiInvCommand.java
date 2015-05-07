@@ -36,7 +36,7 @@ public class MultiInvCommand implements CommandExecutor {
 			Player player = (Player) sender;
 			PlayerInventory inventory = null;
 			try {
-				inventory = InventoryIO.read("plugins\\multiInv\\"+player.getUniqueId().toString().split[1]+".inventory");
+				inventory = InventoryIO.read("plugins\\multiInv\\"+player.getUniqueId().toString()+"\\"+split[1]+".inventory");
 			} catch (Exception e) {
 				sender.sendMessage(ChatColor.RED+"Can't open that inventory file!");
 				return true;
@@ -46,7 +46,7 @@ public class MultiInvCommand implements CommandExecutor {
 				oldInventory.setItem(i, new CardboardBox(player.getInventory().getItem(i)));
 				player.getInventory().setItem(i, inventory.getInventory().get(i).getItemStack());
 			}
-			InventoryIO.write("plugins\\multiInv\\"+player.getUniqueId().toString().split[1]+".inventory", oldInventory);
+			InventoryIO.write("plugins\\multiInv\\"+player.getUniqueId().toString()+"\\"+split[1]+".inventory", oldInventory);
 			sender.sendMessage(ChatColor.GREEN+"Done!!");
 			return true;
 		} else if (split[0].equals("save")) {
