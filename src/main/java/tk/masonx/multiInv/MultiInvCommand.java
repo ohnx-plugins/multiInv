@@ -33,10 +33,12 @@ public class MultiInvCommand implements CommandExecutor {
 		if(split[0].equals("load")) {
 			sender.sendMessage(ChatColor.RED+"Loading your inventory, please do not edit it!");
 			Player player = (Player) sender;
+			PlayerInventory inventory = null;
 			try {
-				PlayerInventory inventory = InventoryIO.read(split[1]+".inventory");
+				inventory = InventoryIO.read(split[1]+".inventory");
 			} catch (Exception e) {
 				sender.sendMessage(ChatColor.RED+"Can't open that inventory file!");
+				return true;
 			}
 			PlayerInventory oldInventory = new PlayerInventory();
 			for (int i=0;i<40;i++) {
