@@ -30,12 +30,13 @@ public class MultiInvCommand implements CommandExecutor {
 			return true;
 		}
 		//load or save?
+		
 		if(split[0].equals("load")) {
-			sender.sendMessage(ChatColor.RED+"Loading your inventory, please do not edit it!");
+			sender.sendMessage(ChatColor.AQUA+"Loading your inventory, with name "+ChatColor.GREEN+split[1]+ChatColor.AQUA+" ...");
 			Player player = (Player) sender;
 			PlayerInventory inventory = null;
 			try {
-				inventory = InventoryIO.read(split[1]+".inventory");
+				inventory = InventoryIO.read("plugins\\multiInv\\"+player.getUniqueID().toString().split[1]+".inventory");
 			} catch (Exception e) {
 				sender.sendMessage(ChatColor.RED+"Can't open that inventory file!");
 				return true;
@@ -45,11 +46,11 @@ public class MultiInvCommand implements CommandExecutor {
 				oldInventory.setItem(i, new CardboardBox(player.getInventory().getItem(i)));
 				player.getInventory().setItem(i, inventory.getInventory().get(i).getItemStack());
 			}
-			InventoryIO.write(split[1]+".inventory", oldInventory);
+			InventoryIO.write("plugins\\multiInv\\"+player.getUniqueID().toString().split[1]+".inventory", oldInventory);
 			sender.sendMessage(ChatColor.GREEN+"Done!!");
 			return true;
 		} else if (split[0].equals("save")) {
-			sender.sendMessage(ChatColor.RED+"Saving your inventory, please do not edit it!");
+			sender.sendMessage(ChatColor.AQUA+"Saving your inventory to the file named");
 			Player player = (Player) sender;
 			PlayerInventory inventory = new PlayerInventory();
 			for (int i=0;i<40;i++) {
@@ -59,6 +60,8 @@ public class MultiInvCommand implements CommandExecutor {
 			InventoryIO.write(split[1]+".inventory", inventory);
 			sender.sendMessage(ChatColor.GREEN+"Done!!");
 			return true;
+		} else if (split[0].equals("help")) {
+			sender.sendMessage(ChatColor.GREEN+"Done!!");
 		} else {
 			return true;
 		}
