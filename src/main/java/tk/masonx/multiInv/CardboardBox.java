@@ -20,13 +20,19 @@ public class CardboardBox implements Serializable {
 
 	@SuppressWarnings("deprecation")
 	public CardboardBox(ItemStack i) {
-		this.materialId = i.getTypeId();
-		this.data	= i.getData().getData();
-		this.durability = i.getDurability();
-		this.amount = i.getAmount();
+		try {
+			this.materialId = i.getTypeId();
+			this.data	= i.getData().getData();
+			this.durability = i.getDurability();
+			this.amount = i.getAmount();
 
-		if (i.getItemMeta() instanceof ConfigurationSerializable) {
-			this.meta = this.getNewMap(((ConfigurationSerializable) i.getItemMeta()).serialize());
+			if (i.getItemMeta() instanceof ConfigurationSerializable)
+				this.meta = this.getNewMap(((ConfigurationSerializable) i.getItemMeta()).serialize());
+		} catch (NullPointerException e) {
+			this.materialId = 0;
+			this.data=0;
+			this.durability=0;
+			this.amount=0;
 		}
 	}
 

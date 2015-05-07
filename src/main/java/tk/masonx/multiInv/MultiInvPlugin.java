@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 //Actual plugin file
 public final class MultiInvPlugin extends JavaPlugin {
+	private final MultiInvCommand commandHandler = new MultiInvCommand(this);
 	PluginDescriptionFile pdfFile;
 	    
 	@Override
@@ -22,7 +23,7 @@ public final class MultiInvPlugin extends JavaPlugin {
 		//pm.registerEvents(playerListener, this);
 
 		//Register vpn command
-		//getCommand("vpn").setExecutor(commandHandler);
+		getCommand("inv").setExecutor(commandHandler);
 		//getCommand("vpn").setTabCompleter(new CheckVPNTabCompleter());
 	        
 		//Say loaded!

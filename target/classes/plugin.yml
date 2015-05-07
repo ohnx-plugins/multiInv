@@ -1,5 +1,5 @@
 name: multiInv
-main: tk.masonx.multiInv.multiInvPlugin
+main: tk.masonx.multiInv.MultiInvPlugin
 version: 0.0.0
 commands:
   inv:

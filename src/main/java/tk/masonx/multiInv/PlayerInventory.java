@@ -2,7 +2,9 @@ package tk.masonx.multiInv;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class PlayerInventory implements Serializable{
@@ -10,8 +12,10 @@ public class PlayerInventory implements Serializable{
 	private ArrayList<CardboardBox> inventory;
 	@SuppressWarnings("deprecation")
 	public PlayerInventory () {
-		for (int i=0;i<=44;i++)
-			inventory.add(new CardboardBox(new ItemStack(0)));
+		inventory = new ArrayList<CardboardBox>();
+		for (int i=0;i<40;i++) {
+			inventory.add(new CardboardBox(new ItemStack(Material.AIR)));
+		}
 	}
 	public void setInventory (ArrayList<CardboardBox> inventory) {
 		this.inventory = inventory;
@@ -29,7 +33,3 @@ public class PlayerInventory implements Serializable{
 		return inventory.get(index);
 	}
 }
-
-/*0-4 empty
-5-8 armour
-9-44 inventory*/
