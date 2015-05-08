@@ -63,14 +63,14 @@ public class MultiInvCommand implements CommandExecutor {
 				sender.sendMessage(ChatColor.RED+"Can't open that inventory file!");
 				return true;
 			}
-			Inventory oldInventory;
+			String oldInventory = new String();
 			if (!emptyInv)
-				oldInventory = player.getInventory();
+				oldInventory = InventoryToBase64.toBase64(player.getInventory());
 			player.getInventory().setContents(InventoryToBase64.fromBase64(inventory).getContents());
 			
 			try {
 				if(!emptyInv)
-					InventoryIO.write("plugins/multiInv/inventories/"+player.getUniqueId().toString(), split[1]+".inventory", InventoryToBase64.toBase64(oldInventory));
+					InventoryIO.write("plugins/multiInv/inventories/"+player.getUniqueId().toString(), split[1]+".inventory", oldInventory);
 				else	//Delete the old file if the inventory was empty, no need for duping items or the such...
 					InventoryIO.delete("plugins/multiInv/inventories/"+player.getUniqueId().toString()+"/"+split[1]+".inventory");
 			} catch (Exception e) {
