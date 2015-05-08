@@ -7,6 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 public class MultiInvCommand implements CommandExecutor {
 	private final MultiInvPlugin plugin;
@@ -51,6 +52,8 @@ public class MultiInvCommand implements CommandExecutor {
 		
 		Player player = (Player) sender;
 		String inventory = null;
+		//Don't bother swapping inventories if the inventory is empty.
+		boolean emptyInv = player.getInventory().getSize()==0;
 		//load or save?
 		if(split[0].equals("load")) {
 			sender.sendMessage(ChatColor.AQUA+"Loading your inventory with name "+ChatColor.GREEN+split[1]+ChatColor.AQUA+"...");
@@ -60,9 +63,7 @@ public class MultiInvCommand implements CommandExecutor {
 				sender.sendMessage(ChatColor.RED+"Can't open that inventory file!");
 				return true;
 			}
-			Inventory oldInventory = new Inventory();
-			//Don't bother swapping inventories if the inventory is empty.
-			boolean emptyInv = player.getInventory().getSize()==0;
+			PlayerInventory oldInventory = new PlayerInventory();
 			if (!emptyInv)
 				oldInventory = player.getInventory();
 			player.getInventory().setContents(InventoryToBase64.fromBase64(inventory));
@@ -74,24 +75,15 @@ public class MultiInvCommand implements CommandExecutor {
 					InventoryIO.delete("plugins/multiInv/inventories/"+player.getUniqueId().toString()+"/"+split[1]+".inventory");
 			} catch (Exception e) {
 				sender.sendMessage(ChatColor.RED+"Can't open that inventory file!");
-				plugin.getLogger().severe("Failed to save the file!");
+				plugin.getLogger().severe("Failed to open the file!");
 				e.printStackTrace();
 			}
 			sender.sendMessage(ChatColor.GREEN+"Done!!");
 			return true;
 		} else if (split[0].equals("save")) {
 			sender.sendMessage(ChatColor.AQUA+"Saving your inventory to the file named "+ChatColor.GREEN+split[1]+ChatColor.AQUA+"...");
-			inventory = new PlayerInventory();
-			//Don't bother saving inventories if the inventory is empty.
-			boolean emptyInv = true;
-			for (int i=0;i<40;i++) {
-				try {
-					if(!player.getInventory().getItem(i).equals(new ItemStack(Material.AIR)))
-						emptyInv=false;
-				} catch (Exception e) {}
-				inventory.setItem(i, new CardboardBox(player.getInventory().getItem(i)));
-				player.getInventory().setItem(i, new ItemStack(Material.AIR));
-			}
+			inventory = InventoryToBase64.toBase64(player.getInventory());
+			player.getInventory().clear();
 			try {
 				if(!emptyInv)
 					InventoryIO.write("plugins/multiInv/inventories/"+player.getUniqueId().toString(), split[1]+".inventory", inventory);
@@ -102,9 +94,7 @@ public class MultiInvCommand implements CommandExecutor {
 				plugin.getLogger().severe("Failed to save the file!");
 				e.printStackTrace();
 				//Restore the items if saving the inventory failed
-				for (int i=0;i<40;i++) {
-					player.getInventory().setItem(i, inventory.getInventory().get(i).getItemStack());
-				}
+				player.getInventory().setContents(InventoryToBase64.fromBase64(inventory));
 			}
 			sender.sendMessage(ChatColor.GREEN+"Done!!");
 			return true;
