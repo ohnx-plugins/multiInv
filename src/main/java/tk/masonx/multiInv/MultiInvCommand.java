@@ -21,16 +21,26 @@ public class MultiInvCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED+"Oops! You don't have the required permissions to access this command.");
 			return true;
 		}*/
+		if (split[0].equals("help")) {
+			sender.sendMessage(ChatColor.AQUA+plugin.pdfFile.getName()+" version "+plugin.pdfFile.getVersion()+" help");
+			sender.sendMessage(ChatColor.DARK_AQUA+"Multiple inventories for a player. Made by ohnx");
+			sender.sendMessage(ChatColor.GREEN+"/inv save <name>\n"+ChatColor.WHITE+"    Save an inventory with the name <name>");
+			sender.sendMessage(ChatColor.GREEN+"/inv load <name>\n"+ChatColor.WHITE+"    Load an inventory with the name <name>");
+			sender.sendMessage(ChatColor.GREEN+"/inv help\n"+ChatColor.WHITE+"    Get help");
+			return false;
+		}
+		
 		//args check
 		if(split.length<2)
 			return false;
+		
 		//server check
 		if(!(sender instanceof Player)) {
 			sender.sendMessage(ChatColor.RED+"You have to be a player to run this command!");
 			return true;
 		}
-		//load or save?
 		
+		//load or save?
 		if(split[0].equals("load")) {
 			sender.sendMessage(ChatColor.AQUA+"Loading your inventory, with name "+ChatColor.GREEN+split[1]+ChatColor.AQUA+" ...");
 			Player player = (Player) sender;
@@ -50,23 +60,16 @@ public class MultiInvCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.GREEN+"Done!!");
 			return true;
 		} else if (split[0].equals("save")) {
-			sender.sendMessage(ChatColor.AQUA+"Saving your inventory to the file named");
+			sender.sendMessage(ChatColor.AQUA+"Saving your inventory to the file named "+ChatColor.GREEN+split[1]+ChatColor.AQUA+" ...");
 			Player player = (Player) sender;
 			PlayerInventory inventory = new PlayerInventory();
 			for (int i=0;i<40;i++) {
 				inventory.setItem(i, new CardboardBox(player.getInventory().getItem(i)));
 				player.getInventory().setItem(i, new ItemStack(Material.AIR));
 			}
-			InventoryIO.write(split[1]+".inventory", inventory);
+			InventoryIO.write"plugins\\multiInv\\"+player.getUniqueId().toString()+"\\"+split[1]+".inventory", inventory);
 			sender.sendMessage(ChatColor.GREEN+"Done!!");
 			return true;
-		} else if (split[0].equals("help")) {
-			sender.sendMessage(ChatColor.AQUA+plugin.pdfFile.getName()+" version "+plugin.pdfFile.getVersion()+" help");
-			sender.sendMessage(ChatColor.DARK_AQUA+"Multiple inventories for a player. Made by ohnx");
-			sender.sendMessage(ChatColor.GREEN+"/inv save <name>\n"+ChatColor.WHITE+"    Save an inventory with the name <name>");
-			sender.sendMessage(ChatColor.GREEN+"/inv load <name>\n"+ChatColor.WHITE+"    Load an inventory with the name <name>");
-			sender.sendMessage(ChatColor.GREEN+"/inv help\n"+ChatColor.WHITE+"    Get help");
-			return false;
 		} else {
 			return true;
 		}
