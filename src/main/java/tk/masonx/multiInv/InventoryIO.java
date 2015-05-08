@@ -9,24 +9,14 @@ public class InventoryIO {
 			out.writeObject(inventory);
 			out.close();
 		} catch(IOException i) {
-			i.printStackTrace();
 		}
 	}
 
-	public static PlayerInventory read(String location) {
+	public static PlayerInventory read(String location) throws Exception{
 		PlayerInventory e = null;
-		try {
          	ObjectInputStream in = new ObjectInputStream(new FileInputStream(location));
          	e = (PlayerInventory) in.readObject();
          	in.close();
          	return e;
-		} catch(IOException i) {
-         	i.printStackTrace();
-         	return null;
-      	} catch(ClassNotFoundException c) {
-         	System.out.println("Employee class not found");
-         	c.printStackTrace();
-         	return null;
-      	}
     }
 }
