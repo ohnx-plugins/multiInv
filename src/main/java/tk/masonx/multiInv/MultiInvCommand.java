@@ -62,18 +62,10 @@ public class MultiInvCommand implements CommandExecutor {
 			}
 			Inventory oldInventory = new Inventory();
 			//Don't bother swapping inventories if the inventory is empty.
-			boolean emptyInv = true;
-			if (player.getInventory().getSize()!=0)
-				player.getInventory().setContents(InventoryToBase64.fromBase64(inventory));
-			
-			for (int i=0;i<40;i++) {
-				try {
-					if(!player.getInventory().getItem(i).equals(new ItemStack(Material.AIR)))
-						emptyInv=false;
-				} catch (Exception e) {}
-				oldInventory.setItem(i, new CardboardBox(player.getInventory().getItem(i)));
-				player.getInventory().setItem(i, inventory.getInventory().get(i).getItemStack());
-			}
+			boolean emptyInv = player.getInventory().getSize()==0;
+			if (!emptyInv)
+				oldInventory = player.getInventory();
+			player.getInventory().setContents(InventoryToBase64.fromBase64(inventory));
 			
 			try {
 				if(!emptyInv)
