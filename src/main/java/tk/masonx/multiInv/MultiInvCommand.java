@@ -63,14 +63,14 @@ public class MultiInvCommand implements CommandExecutor {
 				sender.sendMessage(ChatColor.RED+"Can't open that inventory file!");
 				return true;
 			}
-			PlayerInventory oldInventory = new PlayerInventory();
+			Inventory oldInventory;
 			if (!emptyInv)
 				oldInventory = player.getInventory();
-			player.getInventory().setContents(InventoryToBase64.fromBase64(inventory));
+			player.getInventory().setContents(InventoryToBase64.fromBase64(inventory).getContents());
 			
 			try {
 				if(!emptyInv)
-					InventoryIO.write("plugins/multiInv/inventories/"+player.getUniqueId().toString(), split[1]+".inventory", oldInventory);
+					InventoryIO.write("plugins/multiInv/inventories/"+player.getUniqueId().toString(), split[1]+".inventory", InventoryToBase64.toBase64(oldInventory));
 				else	//Delete the old file if the inventory was empty, no need for duping items or the such...
 					InventoryIO.delete("plugins/multiInv/inventories/"+player.getUniqueId().toString()+"/"+split[1]+".inventory");
 			} catch (Exception e) {
@@ -94,7 +94,7 @@ public class MultiInvCommand implements CommandExecutor {
 				plugin.getLogger().severe("Failed to save the file!");
 				e.printStackTrace();
 				//Restore the items if saving the inventory failed
-				player.getInventory().setContents(InventoryToBase64.fromBase64(inventory));
+				player.getInventory().setContents(InventoryToBase64.fromBase64(inventory).getContents());
 			}
 			sender.sendMessage(ChatColor.GREEN+"Done!!");
 			return true;
