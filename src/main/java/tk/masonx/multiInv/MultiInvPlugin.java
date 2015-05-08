@@ -1,5 +1,7 @@
 package tk.masonx.multiInv;
 
+import java.io.File;
+
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,12 +19,12 @@ public final class MultiInvPlugin extends JavaPlugin {
 	public void onEnable() {
 		//Load config
 		//config.loadConfiguration();
-	    	
+		new File(getDataFolder().toString()+"/inventories").mkdirs();
 		//Register player join listener
 		//PluginManager pm = getServer().getPluginManager();
 		//pm.registerEvents(playerListener, this);
 
-		//Register vpn command
+		//Register inv command
 		getCommand("inv").setExecutor(commandHandler);
 		//getCommand("vpn").setTabCompleter(new CheckVPNTabCompleter());
 	        
