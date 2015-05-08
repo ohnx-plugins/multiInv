@@ -10,16 +10,16 @@ public class PlayerInventoryCB implements Serializable{
 	private static final long serialVersionUID = 1333331141142464968L;
 	private ArrayList<CardboardBox> inventory;
 
-	public PlayerInventory () {
+	public PlayerInventoryCB() {
 		inventory = new ArrayList<CardboardBox>();
 		for (int i=0;i<40;i++) {
 			inventory.add(new CardboardBox(new ItemStack(Material.AIR)));
 		}
 	}
-	public void setInventory (ArrayList<CardboardBox> inventory) {
+	public void setInventory(ArrayList<CardboardBox> inventory) {
 		this.inventory = inventory;
 	}
-	public ArrayList<CardboardBox> getInventory () {
+	public ArrayList<CardboardBox> getInventory() {
 		return inventory;
 	}
 	public void addItem(CardboardBox item) {
