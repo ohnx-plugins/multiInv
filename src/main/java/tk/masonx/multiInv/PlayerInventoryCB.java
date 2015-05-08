@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class PlayerInventory implements Serializable{
+public class PlayerInventoryCB implements Serializable{
 	private static final long serialVersionUID = 1333331141142464968L;
 	private ArrayList<CardboardBox> inventory;
 
