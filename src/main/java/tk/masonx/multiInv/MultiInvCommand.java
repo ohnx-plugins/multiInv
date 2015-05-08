@@ -67,7 +67,7 @@ public class MultiInvCommand implements CommandExecutor {
 				inventory.setItem(i, new CardboardBox(player.getInventory().getItem(i)));
 				player.getInventory().setItem(i, new ItemStack(Material.AIR));
 			}
-			InventoryIO.write"plugins\\multiInv\\"+player.getUniqueId().toString()+"\\"+split[1]+".inventory", inventory);
+			InventoryIO.write("plugins\\multiInv\\"+player.getUniqueId().toString()+"\\"+split[1]+".inventory", inventory);
 			sender.sendMessage(ChatColor.GREEN+"Done!!");
 			return true;
 		} else {
