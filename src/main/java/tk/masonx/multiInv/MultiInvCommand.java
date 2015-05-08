@@ -50,20 +50,22 @@ public class MultiInvCommand implements CommandExecutor {
 		}
 		
 		Player player = (Player) sender;
-		PlayerInventory inventory = null;
+		String inventory = null;
 		//load or save?
 		if(split[0].equals("load")) {
 			sender.sendMessage(ChatColor.AQUA+"Loading your inventory with name "+ChatColor.GREEN+split[1]+ChatColor.AQUA+"...");
 			try {
 				inventory = InventoryIO.read("plugins/multiInv/inventories/"+player.getUniqueId().toString()+"/"+split[1]+".inventory");
 			} catch (Exception e) {
-				
 				sender.sendMessage(ChatColor.RED+"Can't open that inventory file!");
 				return true;
 			}
-			PlayerInventory oldInventory = new PlayerInventory();
+			Inventory oldInventory = new Inventory();
 			//Don't bother swapping inventories if the inventory is empty.
 			boolean emptyInv = true;
+			if (player.getInventory().getSize()!=0)
+				player.getInventory().setContents(InventoryToBase64.fromBase64(inventory));
+			
 			for (int i=0;i<40;i++) {
 				try {
 					if(!player.getInventory().getItem(i).equals(new ItemStack(Material.AIR)))
