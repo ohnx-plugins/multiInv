@@ -5,17 +5,17 @@ import java.util.*;
 import java.util.zip.*;
 
 public class InventoryIO {
-	public static void write(String parent, String file, PlayerInventory inventory) throws Exception{
+	public static void write(String parent, String file, String b64) throws Exception{
 		new File(parent).mkdirs();
 		ObjectOutputStream out = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream(parent+"/"+file)));
-		out.writeObject(inventory);
+		out.writeObject(b64);
 		out.close();
 	}
 
-	public static PlayerInventory read(String location) throws Exception{
-		PlayerInventory e = null;
+	public static String read(String location) throws Exception{
+		String e = null;
          	ObjectInputStream in = new ObjectInputStream(new GZIPInputStream(new FileInputStream(location)));
-         	e = (PlayerInventory) in.readObject();
+         	e = (String) in.readObject();
          	in.close();
          	return e;
     }
