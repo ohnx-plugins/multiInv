@@ -61,7 +61,11 @@ public class MultiInvCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.GREEN+"Done!!");
 			return true;
 		} else if (split[0].equals("help")) {
-			sender.sendMessage(ChatColor.GREEN+"Help is not yet implemented!!");
+			sender.sendMessage(ChatColor.AQUA+plugin.pdfFile.getName()+" version "+plugin.pdfFile.getVersion()+" help");
+			sender.sendMessage(ChatColor.DARK_AQUA+"Multiple inventories for a player. Made by ohnx");
+			sender.sendMessage(ChatColor.GREEN+"/inv save <name>\n"+ChatColor.WHITE+"    Save an inventory with the name <name>");
+			sender.sendMessage(ChatColor.GREEN+"/inv load <name>\n"+ChatColor.WHITE+"    Load an inventory with the name <name>");
+			sender.sendMessage(ChatColor.GREEN+"/inv help\n"+ChatColor.WHITE+"    Get help");
 			return false;
 		} else {
 			return true;
