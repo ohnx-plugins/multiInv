@@ -1,4 +1,4 @@
-package tk.masonx.multiInv;
+package tk.masonx.mc.multiInv;
 
 import java.io.*;
 import java.util.*;
@@ -31,6 +31,7 @@ public class InventoryIO {
 	}
 	
 	public static void delete(String path) {
-		new File(path).delete();
+		File delFile = new File(path);
+		delFile.delete();
 	}
 }

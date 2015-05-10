@@ -1,6 +1,6 @@
 name: multiInv
 main: tk.masonx.multiInv.MultiInvPlugin
-version: 0.0.0
+version: 0.0.1
 commands:
   inv:
     description: Switch inventories

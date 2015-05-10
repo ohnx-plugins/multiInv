@@ -1,4 +1,4 @@
-package tk.masonx.multiInv;
+package tk.masonx.mc.multiInv;
 
 import java.io.File;
 
